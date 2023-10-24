@@ -17,6 +17,10 @@ public class OfListParticipants {
 		options.put("certificate", credentials.getCertificate());
 		options.put("sandbox", credentials.isSandbox());
 
+		// HashMap<String, String> params = new HashMap<String, String>();
+		// params.put("organizacao", "false");
+		// params.put("nome", "Efí"); 
+
 		try {
 			EfiPay efi = new EfiPay(options);
 			Map<String, Object> response = efi.call("ofListParticipants", new HashMap<String,String>(), new HashMap<String, Object>());

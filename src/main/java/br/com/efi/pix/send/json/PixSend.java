@@ -19,17 +19,17 @@ public class PixSend {
 		options.put("certificate", credentials.getCertificate());
 		options.put("sandbox", credentials.isSandbox());
 
-		//HashMap<String, String> params = new HashMap<String, String>();
-		//params.put("idEnvio", "12457567890183473799");
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("idEnvio", "12457567890183473799");
 
 		JSONObject body = new JSONObject();
 		body.put("valor", "0.01");
 		body.put("pagador", new JSONObject().put("chave", "Insira_aqui_sua_chave"));
-		body.put("favorecido", new JSONObject().put("chave", "oão@meuemail.com"));
+		body.put("favorecido", new JSONObject().put("chave", "joão@meuemail.com"));
 
 			try {
 				EfiPay efi= new EfiPay(options);
-				JSONObject response = efi.call("pixSend", new HashMap<String,String>(), body);
+				JSONObject response = efi.call("pixSend", params, body);
 				System.out.println(response);
 			}catch (EfiPayException e){
 				System.out.println(e.getError());

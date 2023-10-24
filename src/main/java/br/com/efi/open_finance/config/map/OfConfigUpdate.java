@@ -19,7 +19,9 @@ public class OfConfigUpdate {
 
         Map<String, Object> body = new HashMap<String, Object>();
 		    body.put("redirectURL", "https://client.com/redirect/here");
-        body.put("webhookURL", "https://client.com/send/callback/here");
+        body.put("webhookURL", "https://client.com/callback/here");
+        body.put("webhookSecurity", new HashMap<String, Object>().put("type", "mtls"));
+        body.put("processPayment", "async");
 
         try {
             EfiPay efi = new EfiPay(options);

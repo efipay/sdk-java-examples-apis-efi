@@ -1,4 +1,4 @@
-package br.com.efi.open_finance.participants.json;
+package br.com.efi.open_finance.devolution.json;
 
 import java.util.HashMap;
 
@@ -8,9 +8,9 @@ import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class OfListParticipants {
+public class OfCancelSchedulePix {
     public static void main(String[] args) {
-        Credentials credentials = new Credentials();
+		Credentials credentials = new Credentials();
 
 		JSONObject options = new JSONObject();
 		options.put("client_id", credentials.getClientId());
@@ -18,13 +18,12 @@ public class OfListParticipants {
 		options.put("certificate", credentials.getCertificate());
 		options.put("sandbox", credentials.isSandbox());
 
-		// HashMap<String, String> params = new HashMap<String, String>();
-		// params.put("organizacao", "false");
-		// params.put("nome", "Efí"); 
-
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("identificadorPagamento", "urn:efi:316df855-b8f5-4bbb-ae65-c97d80549b6f");
+			
 		try {
 			EfiPay efi = new EfiPay(options);
-			JSONObject response = efi.call("ofListParticipants", new HashMap<String,String>(), new JSONObject());
+			JSONObject response = efi.call("ofCancelSchedulePix", params, new JSONObject());
 			System.out.println(response);
 		}catch (EfiPayException e){
 			System.out.println(e.getError());

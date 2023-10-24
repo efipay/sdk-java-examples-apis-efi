@@ -1,30 +1,29 @@
-package br.com.efi.open_finance.participants.json;
+package br.com.efi.open_finance.devolution.map;
 
 import java.util.HashMap;
-
-import org.json.JSONObject;
+import java.util.Map;
 
 import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class OfListParticipants {
+public class OfCancelSchedulePix {
     public static void main(String[] args) {
-        Credentials credentials = new Credentials();
+		Credentials credentials = new Credentials();
 
-		JSONObject options = new JSONObject();
+		HashMap<String, Object> options = new HashMap<String, Object>();
 		options.put("client_id", credentials.getClientId());
 		options.put("client_secret", credentials.getClientSecret());
 		options.put("certificate", credentials.getCertificate());
 		options.put("sandbox", credentials.isSandbox());
 
-		// HashMap<String, String> params = new HashMap<String, String>();
-		// params.put("organizacao", "false");
-		// params.put("nome", "Efí"); 
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("identificadorPagamento", "urn:efi:316df855-b8f5-4bbb-ae65-c97d80549b6f");
 
 		try {
 			EfiPay efi = new EfiPay(options);
-			JSONObject response = efi.call("ofListParticipants", new HashMap<String,String>(), new JSONObject());
+			
+			Map<String, Object> response = efi.call("ofCancelSchedulePix", params, new HashMap<String, Object>());
 			System.out.println(response);
 		}catch (EfiPayException e){
 			System.out.println(e.getError());
