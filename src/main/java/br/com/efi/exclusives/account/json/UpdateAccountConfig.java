@@ -28,8 +28,9 @@ public class UpdateAccountConfig {
 			.put("recebimento", new JSONObject()
 			.put("txidObrigatorio", true)
 			.put("qrCodeEstatico", new JSONObject()
-			.put("recusarTodos", false)
+			.put("recusarTodos", false))
 			.put("webhook", new JSONObject()
+			.put("notificacao", new JSONObject()
 			.put("tarifa", true)
 			.put("pagador", true)
 			))))));

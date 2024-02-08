@@ -9,7 +9,7 @@ import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class CreateCarnet {
+public class UpdateCarnetParcels {
 
 	public static void main(String[] args) {		
 		/* *********  Set credentials parameters ******** */
@@ -23,36 +23,27 @@ public class CreateCarnet {
 
 		/* ************************************************* */ 
 
-		List<Object> items = new ArrayList<Object>();
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("id", "0");
 
-		Map<String, Object> item1 = new HashMap<String, Object>();
-		item1.put("name", "Item 1");
-		item1.put("amount", 1);
-		item1.put("value", 1000);
+		List<Object> parcels = new ArrayList<Object>();
 
-		Map<String, Object> item2 = new HashMap<String, Object>();
-		item2.put("name", "Item 2");
-		item2.put("amount", 1);
-		item2.put("value", 2000);
+		Map<String, Object> parcel1 = new HashMap<String, Object>();
+		parcel1.put("parcel", 1);
+		parcel1.put("expire_at", "2024-03-15");
 
-		items.add(item1);
-		items.add(item2);
+		Map<String, Object> parcel2 = new HashMap<String, Object>();
+		parcel2.put("parcel", 2);
+		parcel2.put("expire_at", "2024-04-15");
 
-		Map<String, Object> customer = new HashMap<String, Object>();
-		customer.put("name", "Gorbadoc Oldbuck");
-		customer.put("cpf", "94271564656");
-		customer.put("phone_number", "5144916523");
+		parcels.add(parcel1);
+		parcels.add(parcel2); 
 		
 		Map<String, Object> body = new HashMap<String, Object>();
-		body.put("items", items);
-		body.put("customer", customer);
-		body.put("expire_at", "2020-12-02");
-		body.put("repeats", 5);
-		body.put("split_items", false);
-		
+		body.put("items", parcels);
 		try {
 			EfiPay efi = new EfiPay(options);
-			Map<String, Object> response = efi.call("createCarnet", new HashMap<String,String>(), body);
+			Map<String, Object> response = efi.call("updateCarnetParcels", params, body);
 			System.out.println(response);
 		}catch (EfiPayException e){
 			System.out.println(e.getCode());
