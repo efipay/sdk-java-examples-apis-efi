@@ -1,4 +1,4 @@
-package br.com.efi.payments.billets.map;
+package br.com.efi.payments.billets.payment.map;
 
 import java.util.HashMap;
 import java.util.Map;

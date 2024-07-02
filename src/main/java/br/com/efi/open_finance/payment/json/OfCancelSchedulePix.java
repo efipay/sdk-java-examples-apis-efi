@@ -1,4 +1,4 @@
-package br.com.efi.payments.billets.json;
+package br.com.efi.open_finance.payment.json;
 
 import java.util.HashMap;
 
@@ -8,7 +8,7 @@ import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class PayDetailBarCode {
+public class OfCancelSchedulePix {
     public static void main(String[] args) {
 		Credentials credentials = new Credentials();
 
@@ -18,12 +18,12 @@ public class PayDetailBarCode {
 		options.put("certificate", credentials.getCertificate());
 		options.put("sandbox", credentials.isSandbox());
 
-    	HashMap<String, String> params = new HashMap<String, String>();
-		params.put("codBarras", "Insira_aqui_o_codBarras");
-
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("identificadorPagamento", "urn:efi:316df855-b8f5-4bbb-ae65-c97d80549b6f");
+			
 		try {
 			EfiPay efi = new EfiPay(options);
-			JSONObject response = efi.call("payDetailBarCode", params, new JSONObject());
+			JSONObject response = efi.call("ofCancelSchedulePix", params, new JSONObject());
 			System.out.println(response);
 		}catch (EfiPayException e){
 			System.out.println(e.getError());

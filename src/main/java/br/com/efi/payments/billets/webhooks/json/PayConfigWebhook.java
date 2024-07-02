@@ -1,4 +1,4 @@
-package br.com.efi.pix.webhooks.json;
+package br.com.efi.payments.billets.webhooks.json;
 
 import java.util.HashMap;
 
@@ -8,7 +8,7 @@ import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class PixConfigWebhook {
+public class PayConfigWebhook {
     public static void main(String[] args) {
 
 	  Credentials credentials = new Credentials();
@@ -21,15 +21,12 @@ public class PixConfigWebhook {
 
       options.put("x-skip-mtls-checking", "true");
 
-        HashMap<String, String> params = new HashMap<String, String>();
-		    params.put("chave", "Insira_aqui_sua_chave");
-
         JSONObject body = new JSONObject();
-        body.put("webhookUrl", "https://seudominio.com.br/webhook");
+        body.put("url", "https://seudominio.com.br/webhook");
 
         try {
           EfiPay efi = new EfiPay(options);
-          JSONObject response = efi.call("pixConfigWebhook", params, body);
+          JSONObject response = efi.call("payConfigWebhook", new HashMap<String,String>(), body);
           System.out.println(response);
 
         }catch (EfiPayException e){

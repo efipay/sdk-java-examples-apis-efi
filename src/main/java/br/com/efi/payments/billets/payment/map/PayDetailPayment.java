@@ -1,4 +1,4 @@
-package br.com.efi.payments.billets.map;
+package br.com.efi.payments.billets.payment.map;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +7,7 @@ import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class PayDetailBarCode {
+public class PayDetailPayment {
     public static void main(String[] args) {
 		Credentials credentials = new Credentials();
 
@@ -18,12 +18,11 @@ public class PayDetailBarCode {
 		options.put("sandbox", credentials.isSandbox());
 
     	HashMap<String, String> params = new HashMap<String, String>();
-		params.put("codBarras", "Insira_aqui_o_codBarras");
-		
+		params.put("idPagamento", "1");
+
 		try {
 			EfiPay efi = new EfiPay(options);
-			
-			Map<String, Object> response = efi.call("payDetailBarCode", params, new HashMap<String, Object>());
+			Map<String, Object> response = efi.call("payDetailPayment", params, new HashMap<String, Object>());
 			System.out.println(response);
 		}catch (EfiPayException e){
 			System.out.println(e.getError());

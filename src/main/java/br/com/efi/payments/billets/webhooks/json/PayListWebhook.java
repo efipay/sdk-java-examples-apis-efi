@@ -1,29 +1,31 @@
-package br.com.efi.payments.billets.map;
+package br.com.efi.payments.billets.webhooks.json;
 
 import java.util.HashMap;
-import java.util.Map;
+
+import org.json.JSONObject;
 
 import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class PayListPayments {
+public class PayListWebhook {
     public static void main(String[] args) {
+
         Credentials credentials = new Credentials();
 
-		HashMap<String, Object> options = new HashMap<String, Object>();
+		JSONObject options = new JSONObject();
 		options.put("client_id", credentials.getClientId());
 		options.put("client_secret", credentials.getClientSecret());
 		options.put("certificate", credentials.getCertificate());
 		options.put("sandbox", credentials.isSandbox());
 
     	HashMap<String, String> params = new HashMap<String, String>();
-		params.put("dataInicio", "2022-04-01");
-		params.put("dataFim", "2022-10-22");
+		params.put("dataInicio", "2024-01-01T16:01:35Z");
+		params.put("dataFim", "2024-06-01T16:01:35Z"); 
 
 		try {
-			EfiPay efi = new EfiPay(options);
-			Map<String, Object> response = efi.call("payListPayments", params, new HashMap<String, Object>());
+			EfiPay efi= new EfiPay(options);
+			JSONObject response = efi.call("payListWebhook", params, new JSONObject());
 			System.out.println(response);
 		}catch (EfiPayException e){
 			System.out.println(e.getError());
