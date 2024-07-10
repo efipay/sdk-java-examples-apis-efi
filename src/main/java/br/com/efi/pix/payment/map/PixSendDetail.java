@@ -1,4 +1,4 @@
-package br.com.efi.pix.send.map;
+package br.com.efi.pix.payment.map;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,9 +7,9 @@ import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class PixSendList {
+public class PixSendDetail {
     public static void main(String[] args) {
-        Credentials credentials = new Credentials();
+		Credentials credentials = new Credentials();
 
 		HashMap<String, Object> options = new HashMap<String, Object>();
 		options.put("client_id", credentials.getClientId());
@@ -18,12 +18,12 @@ public class PixSendList {
 		options.put("sandbox", credentials.isSandbox());
 
     	HashMap<String, String> params = new HashMap<String, String>();
-		params.put("inicio", "2021-04-01T16:01:35Z");
-		params.put("fim", "2021-04-22T16:01:35Z");
+		params.put("e2eId", "E12345678202009091221abcdef12345");
 
 		try {
 			EfiPay efi = new EfiPay(options);
-			Map<String, Object> response = efi.call("pixSendList", params, new HashMap<String, Object>());
+			
+			Map<String, Object> response = efi.call("pixSendDetail", params, new HashMap<String, Object>());
 			System.out.println(response);
 		}catch (EfiPayException e){
 			System.out.println(e.getError());

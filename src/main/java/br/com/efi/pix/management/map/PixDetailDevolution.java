@@ -1,29 +1,29 @@
-package br.com.efi.pix.send.json;
+package br.com.efi.pix.management.map;
 
 import java.util.HashMap;
-
-import org.json.JSONObject;
+import java.util.Map;
 
 import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class PixSendDetail {
+public class PixDetailDevolution {
     public static void main(String[] args) {
 		Credentials credentials = new Credentials();
 
-		JSONObject options = new JSONObject();
+		HashMap<String, Object> options = new HashMap<String, Object>();
 		options.put("client_id", credentials.getClientId());
 		options.put("client_secret", credentials.getClientSecret());
 		options.put("certificate", credentials.getCertificate());
 		options.put("sandbox", credentials.isSandbox());
 
     	HashMap<String, String> params = new HashMap<String, String>();
-		params.put("e2eId", "E09089356202212011428API3f67ec70");
+		params.put("e2eId", "E12345678202009091221abcdef12345");
+		params.put("id", "1");
 
 		try {
 			EfiPay efi= new EfiPay(options);
-			JSONObject response = efi.call("pixSendDetail", params, new JSONObject());
+			Map<String, Object> response = efi.call("pixDetailDevolution", params, new HashMap<String, Object>());
 			System.out.println(response);
 		}catch (EfiPayException e){
 			System.out.println(e.getError());

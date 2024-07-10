@@ -1,7 +1,7 @@
-package br.com.efi.pix.pix.map;
-
+package br.com.efi.pix.management.json;
 import java.util.HashMap;
-import java.util.Map;
+
+import org.json.JSONObject;
 
 import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
@@ -11,22 +11,22 @@ public class PixDevolution {
     public static void main(String[] args) {
         Credentials credentials = new Credentials();
 
-        HashMap<String, Object> options = new HashMap<String, Object>();
+        JSONObject options = new JSONObject();
         options.put("client_id", credentials.getClientId());
         options.put("client_secret", credentials.getClientSecret());
         options.put("certificate", credentials.getCertificate());
         options.put("sandbox", credentials.isSandbox());
 
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("e2eId", "E18236120202104211819s03585605TS");
+        params.put("e2eId", "E12345678202009091221abcdef12345");
         params.put("id", "1");
 
-        Map<String, Object> body = new HashMap<String, Object>();
+        JSONObject body = new JSONObject();
 		    body.put("valor", "7.89");
 
         try {
             EfiPay efi= new EfiPay(options);
-            Map<String, Object> response = efi.call("pixDevolution", params, body);
+            JSONObject response = efi.call("pixDevolution", params, body);
             System.out.println(response);
           }catch (EfiPayException e){
             System.out.println(e.getError());

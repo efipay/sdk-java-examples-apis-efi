@@ -1,4 +1,4 @@
-package br.com.efi.pix.send.map;
+package br.com.efi.pix.payment.map;
 
 import java.util.HashMap;
 import java.util.Map;
