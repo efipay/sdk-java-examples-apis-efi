@@ -1,4 +1,4 @@
-package br.com.efi.open_finance.payment.map;
+package br.com.efi.open_finance.payments.recurrency.map;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +7,7 @@ import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class OfCancelSchedulePix {
+public class OfCancelRecurrencyPix {
     public static void main(String[] args) {
 		Credentials credentials = new Credentials();
 
@@ -23,7 +23,7 @@ public class OfCancelSchedulePix {
 		try {
 			EfiPay efi = new EfiPay(options);
 			
-			Map<String, Object> response = efi.call("ofCancelSchedulePix", params, new HashMap<String, Object>());
+			Map<String, Object> response = efi.call("ofCancelRecurrencyPix", params, new HashMap<String, Object>());
 			System.out.println(response);
 		}catch (EfiPayException e){
 			System.out.println(e.getError());

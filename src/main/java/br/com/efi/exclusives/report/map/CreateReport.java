@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.json.JSONObject;
 
 import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
@@ -22,13 +21,15 @@ public class CreateReport {
 
 		Map<String, Object> body = new HashMap<String, Object>();	
 		body.put("dataMovimento", "2022-04-24");
-		body.put("tipoRegistros", new JSONObject().put("pixRecebido", true)
-			.put("pixDevolucaoEnviada", false)
-			.put("tarifaPixRecebido", true)
-			.put("pixEnviadoChave", true)
-			.put("pixEnviadoDadosBancarios", false)
-			.put("pixDevolucaoRecebida", true));
+		Map<String, Object> tipoRegistros = new HashMap<String, Object>();
+        tipoRegistros.put("pixRecebido", true);
+        tipoRegistros.put("pixDevolucaoEnviada", false);
+        tipoRegistros.put("tarifaPixRecebido", true);
+        tipoRegistros.put("pixEnviadoChave", true);
+        tipoRegistros.put("pixEnviadoDadosBancarios", false);
+        tipoRegistros.put("pixDevolucaoRecebida", true);
 
+        body.put("tipoRegistros", tipoRegistros);
 		
 		try {
 			EfiPay efi = new EfiPay(options);

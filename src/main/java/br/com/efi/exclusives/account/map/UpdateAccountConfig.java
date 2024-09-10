@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONObject;
-
 import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
@@ -22,14 +20,25 @@ public class UpdateAccountConfig {
 		options.put("sandbox", credentials.isSandbox());
 
 		Map<String, Object> body = new HashMap<String, Object>();	
-		body.put("pix", new JSONObject()
-			.put("receberSemChave", true)
-			.put("chaves", new JSONObject()
-			.put("Insira_aqui_sua_chave", new JSONObject()
-			.put("recebimento", new JSONObject()
-			.put("txidObrigatorio", true)
-			.put("qrCodeEstatico", new JSONObject()
-			.put("recusarTodos", false))))));
+		
+		Map<String, Object> qrCodeEstatico = new HashMap<String, Object>();
+        qrCodeEstatico.put("recusarTodos", false);
+
+        Map<String, Object> recebimento = new HashMap<String, Object>();
+        recebimento.put("txidObrigatorio", true);
+        recebimento.put("qrCodeEstatico", qrCodeEstatico);
+
+        Map<String, Object> chave = new HashMap<String, Object>();
+        chave.put("recebimento", recebimento);
+
+        Map<String, Object> chaves = new HashMap<String, Object>();
+        chaves.put("Insira_aqui_sua_chave", chave);
+
+        Map<String, Object> pix = new HashMap<String, Object>();
+        pix.put("receberSemChave", true);
+        pix.put("chaves", chaves);
+
+        body.put("pix", pix);
 
 			try {
 				EfiPay efi = new EfiPay(options);

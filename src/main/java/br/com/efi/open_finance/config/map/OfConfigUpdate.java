@@ -20,7 +20,10 @@ public class OfConfigUpdate {
         Map<String, Object> body = new HashMap<String, Object>();
 		    body.put("redirectURL", "https://client.com/redirect/here");
         body.put("webhookURL", "https://client.com/callback/here");
-        body.put("webhookSecurity", new HashMap<String, Object>().put("type", "mtls"));
+
+        Map<String, Object> webhookSecurity = new HashMap<String, Object>();
+        webhookSecurity.put("type", "mtls");
+        body.put("webhookSecurity", webhookSecurity);
         body.put("processPayment", "async");
 
         try {

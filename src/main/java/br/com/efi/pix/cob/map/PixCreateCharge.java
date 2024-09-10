@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-import org.json.JSONObject;
 
 import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
@@ -25,17 +24,36 @@ public class PixCreateCharge {
         HashMap<String, String> params = new HashMap<String, String>();
 		    params.put("txid", "7978c0c97ea847e78e8849634473c1f1");
 
-        Map<String, Object> body = new HashMap<String, Object>();	
-        body.put("calendario", new JSONObject().put("expiracao", 3600));
-        body.put("devedor", new JSONObject().put("cpf", "12345678909").put("nome", "Francisco da Silva"));
-        body.put("valor", new JSONObject().put("original", "123.45"));
+        Map<String, Object> body = new HashMap<String, Object>();
+
+        Map<String, Object> calendario = new HashMap<String, Object>();
+        calendario.put("expiracao", 3600);
+
+        Map<String, Object> devedor = new HashMap<String, Object>();
+        devedor.put("cpf", "12345678909");
+        devedor.put("nome", "Francisco da Silva");
+
+        Map<String, Object> valor = new HashMap<String, Object>();
+        valor.put("original", "123.45");
+
+        List<Map<String, Object>> infoAdicionais = new ArrayList<>();
+        Map<String, Object> info1 = new HashMap<String, Object>();
+        info1.put("nome", "Campo 1");
+        info1.put("valor", "Informação Adicional1 do PSP-Recebedor");
+        infoAdicionais.add(info1);
+
+        Map<String, Object> info2 = new HashMap<String, Object>();
+        info2.put("nome", "Campo 2");
+        info2.put("valor", "Informação Adicional2 do PSP-Recebedor");
+        infoAdicionais.add(info2);
+
+        body.put("calendario", calendario);
+        body.put("devedor", devedor);
+        body.put("valor", valor);
         body.put("chave", "Insira_aqui_sua_chave");
         body.put("solicitacaoPagador", "Serviço realizado.");
-
-        List<Object> infoAdicionais =  new ArrayList<Object>();
-        infoAdicionais.add(new JSONObject().put("nome", "Campo 1").put("valor", "Informação Adicional1 do PSP-Recebedor"));
-        infoAdicionais.add(new JSONObject().put("nome", "Campo 2").put("valor", "Informação Adicional2 do PSP-Recebedor"));
         body.put("infoAdicionais", infoAdicionais);
+
 
         try {
           EfiPay efi = new EfiPay(options);

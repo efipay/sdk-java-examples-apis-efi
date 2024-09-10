@@ -1,15 +1,13 @@
-package br.com.efi.open_finance.payment.map;
+package br.com.efi.open_finance.payments.recurrency.map;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.json.JSONObject;
 
 import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class OfStartPixPayment {
+public class OfDevolutionRecurrencyPix {
     public static void main(String[] args) {
 		Credentials credentials = new Credentials();
 
@@ -19,26 +17,16 @@ public class OfStartPixPayment {
 		options.put("certificate", credentials.getCertificate());
 		options.put("sandbox", credentials.isSandbox());
 
-		options.put("x-idempotency-key", "ae71713f-875b-4af3-9d85-0bcb43288847");
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("endToEndId", "E090893562024072215009e91a097af2");
 
     	Map<String, Object> body = new HashMap<String, Object>();	
-		body.put("pagador", new JSONObject().put("idParticipante", "9f4cd202-8f2b-11ec-b909-0242ac120002")
-			.put("cpf", "45204392050").put("cnpj", "90293071000112"));
-		body.put("favorecido", new JSONObject().put("contaBanco", new JSONObject()
-			.put("codigoBanco", "364")
-			.put("agencia", "0001")
-			.put("documento", "11122233344")
-			.put("nome", "Luiz Silva")
-			.put("conta", "654984")
-			.put("tipoConta", "CACC")));
-		body.put("valor", "9.90");
-		body.put("codigoCidadeIBGE", "3540000");
-		body.put("infoPagador", "Compra dia xx");
+        body.put("valor", "0.01");
 
 		try {
 			EfiPay efi = new EfiPay(options);
 			
-			Map<String, Object> response = efi.call("ofStartPixPayment", new HashMap<String,String>(), body);
+			Map<String, Object> response = efi.call("ofDevolutionRecurrencyPix", params, body);
 			System.out.println(response);
 		}catch (EfiPayException e){
 			System.out.println(e.getError());

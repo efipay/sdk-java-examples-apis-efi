@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-import org.json.JSONObject;
-
 import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
@@ -23,31 +21,49 @@ public class pixCreateDueChargeBatch {
     options.put("sandbox", credentials.isSandbox());
 
     HashMap<String, String> params = new HashMap<String, String>();
-    params.put("id", "1");
+    params.put("id", "59");
 
-    List<Object> cobsv =  new ArrayList<Object>();
+    List<Map<String, Object>> cobsv = new ArrayList<>();
 
+    // Create cobsv1
     Map<String, Object> cobsv1 = new HashMap<String, Object>();
-    cobsv1.put("calendario", new JSONObject().put("dataDeVencimento", "2024-03-02").put("validadeAposVencimento", 30));
-    cobsv1.put("txid", "ab476126se554ad593c7226beb5cb657");
-    cobsv1.put("devedor", new JSONObject().put("cpf", "12345678909").put("nome", "Francisco da Silva"));
-    cobsv1.put("valor", new JSONObject().put("original", "0.10"));
+    Map<String, Object> calendario1 = new HashMap<String, Object>();
+    calendario1.put("dataDeVencimento", "2023-01-02");
+    calendario1.put("validadeAposVencimento", 30);
+    cobsv1.put("calendario", calendario1);
+    cobsv1.put("txid", "ab256126se554ad593c7226beb5cb657");
+    Map<String, Object> devedor1 = new HashMap<String, Object>();
+    devedor1.put("cpf", "12345678909");
+    devedor1.put("nome", "Francisco da Silva");
+    cobsv1.put("devedor", devedor1);
+    Map<String, Object> valor1 = new HashMap<String, Object>();
+    valor1.put("original", "0.10");
+    cobsv1.put("valor", valor1);
     cobsv1.put("chave", "Insira_aqui_sua_chave");
     cobsv1.put("solicitacaoPagador", "Informar matrícula");
 
-    Map<String, Object> cobsv2 = new HashMap<String, Object>();
-    cobsv2.put("calendario", new JSONObject().put("dataDeVencimento", "2024-03-02").put("validadeAposVencimento", 30));
-    cobsv2.put("txid", "dg26612f0e554ad593c7226beb5cb650");
-    cobsv2.put("devedor", new JSONObject().put("cpf", "12345678909").put("nome", "Francisco da Silva"));
-    cobsv2.put("valor", new JSONObject().put("original", "0.10"));
-    cobsv2.put("chave", "Insira_aqui_sua_chave");
-    cobsv2.put("solicitacaoPagador", "Informar matrícula");
+   // Create cobsv2
+   Map<String, Object> cobsv2 = new HashMap<String, Object>();
+   Map<String, Object> calendario2 = new HashMap<String, Object>();
+   calendario2.put("dataDeVencimento", "2023-01-02");
+   calendario2.put("validadeAposVencimento", 30);
+   cobsv2.put("calendario", calendario2);
+   cobsv2.put("txid", "db28612f0e554ad593c7226beb5cb650");
+   Map<String, Object> devedor2 = new HashMap<String, Object>();
+   devedor2.put("cpf", "12345678909");
+   devedor2.put("nome", "Francisco da Silva");
+   cobsv2.put("devedor", devedor2);
+   Map<String, Object> valor2 = new HashMap<String, Object>();
+   valor2.put("original", "0.10");
+   cobsv2.put("valor", valor2);
+   cobsv2.put("chave", "Insira_aqui_sua_chave");
+   cobsv2.put("solicitacaoPagador", "Informar matrícula");
 
     cobsv.add(cobsv1);
     cobsv.add(cobsv2);
 
     Map<String, Object> body = new HashMap<String, Object>();
-    //body.put("descricao", "Cobranças dos alunos do turno vespertino");
+    body.put("descricao", "Cobranças dos alunos do turno vespertino");
     body.put("cobsv", cobsv);
 
     try {

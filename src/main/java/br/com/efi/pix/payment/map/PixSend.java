@@ -23,8 +23,14 @@ public class PixSend {
 
 		Map<String, Object> body = new HashMap<String, Object>();
 		body.put("valor", "99.99");
-		body.put("pagador", new HashMap<String, Object>().put("chave", "Insira_aqui_sua_chave"));
-		body.put("favorecido", new HashMap<String, Object>().put("chave", "joão@meuemail.com"));
+
+		Map<String, Object> pagador = new HashMap<String, Object>();
+        pagador.put("chave", "Insira_aqui_sua_chave");
+        body.put("pagador", pagador);
+		
+		Map<String, Object> favorecido = new HashMap<String, Object>();
+        favorecido.put("chave", "joão@meuemail.com");
+        body.put("favorecido", favorecido);
 
 			try {
 				EfiPay efi= new EfiPay(options);

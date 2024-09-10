@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.json.JSONObject;
 
 import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
@@ -22,17 +21,26 @@ public class PixUpdateDueCharge {
 		options.put("sandbox", credentials.isSandbox());
 
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("txid", "7978c0c97ea847e78e8849634473c1f1");
+		params.put("txid", "7979c0c97ed847e78e8849634473c1d1");
 
-		Map<String, Object> body = new HashMap<String, Object>();
-		body.put("devedor",new JSONObject().put("logradouro", "Alameda Souza, Numero 80, Bairro Braz")
-			.put("cidade", "Recife")
-			.put("uf", "PE")
-			.put("cep", "70011750")
-			.put("cpf", "12345678909")
-			.put("nome", "Francisco da Silva"));
-		body.put("valor", new JSONObject().put("original", "123.45"));
-		body.put("solicitacaoPagador", "Cobrança dos serviços prestados.");
+		 // Criando o mapa de devedor
+		 HashMap<String, Object> devedor = new HashMap<String, Object>();
+		 devedor.put("logradouro", "Alameda Souza, Numero 80, Bairro Braz");
+		 devedor.put("cidade", "Recife");
+		 devedor.put("uf", "PE");
+		 devedor.put("cep", "70011750");
+		 devedor.put("cpf", "12345678909");
+		 devedor.put("nome", "Francisco da Silva");
+ 
+		 // Criando o mapa de valor
+		 HashMap<String, Object> valor = new HashMap<String, Object>();
+		 valor.put("original", "13.45");
+ 
+		 // Criando o corpo da requisição (body)
+		 HashMap<String, Object> body = new HashMap<String, Object>();
+		 body.put("sds", devedor);
+		 body.put("valor", valor);
+		 body.put("solicitacaoPagador", "Cobrança dos serviços prestados.");
 
 			try {
 				EfiPay efi = new EfiPay(options);
