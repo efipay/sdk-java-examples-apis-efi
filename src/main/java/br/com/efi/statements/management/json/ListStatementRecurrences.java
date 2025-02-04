@@ -1,4 +1,6 @@
-package br.com.efi.pix.location.json;
+package br.com.efi.statements.management.json;
+
+import java.io.IOException;
 
 import java.util.HashMap;
 
@@ -8,9 +10,9 @@ import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class PixLocationList {
+public class ListStatementRecurrences {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Credentials credentials = new Credentials();
 
         JSONObject options = new JSONObject();
@@ -19,17 +21,9 @@ public class PixLocationList {
         options.put("certificate", credentials.getCertificate());
         options.put("sandbox", credentials.isSandbox());
 
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("inicio", "2021-04-01T16:01:35Z");
-        params.put("fim", "2021-04-21T16:01:35Z");
-        params.put("txIdPresente", "true");
-        params.put("tipoCob", "cob");
-        params.put("paginacao.paginaAtual", "0");
-        params.put("paginacao.itensPorPagina", "10");
-
         try {
             EfiPay efi = new EfiPay(options);
-            JSONObject response = efi.call("pixLocationList", params, new JSONObject());
+            JSONObject response = efi.call("listStatementRecurrences", new HashMap<String, String>(), new JSONObject());
             System.out.println(response);
         } catch (EfiPayException e) {
             System.out.println(e.getError());

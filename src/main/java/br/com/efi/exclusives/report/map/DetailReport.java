@@ -1,9 +1,7 @@
 package br.com.efi.exclusives.report.map;
 
 import java.io.IOException;
-
 import java.util.HashMap;
-import java.util.Map;
 
 import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
@@ -24,7 +22,7 @@ public class DetailReport {
 		
 		try {
 			EfiPay efi = new EfiPay(options);
-			Map<String, Object> response = efi.call("detailReport", params, new HashMap<String, Object>());
+			String response = efi.callString("detailReport", params, new HashMap<String, Object>());
 			System.out.println(response);
 		}catch (EfiPayException e){
 			System.out.println(e.getError());

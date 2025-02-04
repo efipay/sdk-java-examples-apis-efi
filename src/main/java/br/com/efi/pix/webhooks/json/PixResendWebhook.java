@@ -1,16 +1,18 @@
-package br.com.efi.pix.location.json;
+package br.com.efi.pix.webhooks.json;
 
 import java.util.HashMap;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import br.com.efi.Credentials;
 import br.com.efi.efisdk.EfiPay;
 import br.com.efi.efisdk.exceptions.EfiPayException;
 
-public class PixLocationList {
+public class PixResendWebhook {
 
     public static void main(String[] args) {
+
         Credentials credentials = new Credentials();
 
         JSONObject options = new JSONObject();
@@ -19,17 +21,18 @@ public class PixLocationList {
         options.put("certificate", credentials.getCertificate());
         options.put("sandbox", credentials.isSandbox());
 
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("inicio", "2021-04-01T16:01:35Z");
-        params.put("fim", "2021-04-21T16:01:35Z");
-        params.put("txIdPresente", "true");
-        params.put("tipoCob", "cob");
-        params.put("paginacao.paginaAtual", "0");
-        params.put("paginacao.itensPorPagina", "10");
+        JSONObject body = new JSONObject();
+        body.put("tipo", "PIX_RECEBIDO");
+
+        JSONArray e2eids = new JSONArray();
+        e2eids.put("E09089356202412261300API229e5352");
+        e2eids.put("E09089356202412261300API3149af57");
+
+        body.put("e2eids", e2eids);
 
         try {
             EfiPay efi = new EfiPay(options);
-            JSONObject response = efi.call("pixLocationList", params, new JSONObject());
+            JSONObject response = efi.call("pixResendWebhook", new HashMap<String, String>(), body);
             System.out.println(response);
         } catch (EfiPayException e) {
             System.out.println(e.getError());
